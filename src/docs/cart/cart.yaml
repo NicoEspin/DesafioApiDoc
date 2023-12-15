@@ -1,0 +1,59 @@
+paths:
+  /api/carts/:
+    post:
+      summary: Crear un nuevo producto
+      tags:
+        - Carts
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              _id:
+                type: ObjectId
+              products:
+                type: array
+      responses:
+        "201":
+          description: Carrito creado correctamente
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Carts'
+        "500":
+          description: Error interno en el servidor    
+  /api/carts/{id}:
+    get:
+      summary: Obtener un carrito
+      tags:
+        - Carts
+      parameters:
+        - name: id
+          in: path
+          required: true 
+          schema:
+            $type: String
+          description: ID del carrito a buscar
+      responses:
+        "200":
+          description: Carrito obtenido correctamente
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Carts'
+        "500":
+          description: Error interno en el servidor
+components:
+  schemas:
+    Carts:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: ID autogenerado por MongoDB
+        products:
+          type: array

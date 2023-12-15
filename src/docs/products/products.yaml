@@ -1,0 +1,150 @@
+paths:
+  /api/products/:
+    get:
+      summary: Obtener a todos los productos
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Productos obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Products'
+        "500":
+          description: Error interno en el servidor
+    post:
+      summary: Crear un nuevo producto
+      tags:
+        - Products
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              _id:
+                type: ObjectId
+              title:
+                type: String
+              price:
+                type: Number
+              stock: 
+                type: Number
+              category:
+                type: String
+              status: 
+                  type: Boolean
+              code: 
+                type: Number
+      responses:
+        "201":
+          description: Producto creado correctamente
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Products'
+        "500":
+          description: Error interno en el servidor      
+  /api/products/{id}:
+    get:
+      summary: Obtener un producto
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          required: true 
+          schema:
+            $type: String
+          description: ID del usuario a buscar
+      responses:
+        "200":
+          description: Producto obtenido correctamente
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Products'
+        "500":
+          description: Error interno en el servidor
+    put:
+      summary: Actualizar un producto
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          required: true 
+          schema:
+            $type: String
+          description: ID del usuario a actualizar
+      responses:
+        "200":
+          description: Producto actualizado correctamente
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Products'
+        "500":
+          description: Error interno en el servidor
+    delete:
+      summary: Eliminar un producto
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          required: true 
+          schema:
+            $type: String
+          description: ID del usuario a eliminar
+      responses:
+        "200":
+          description: Producto eliminado correctamente
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Products'
+        "500":
+          description: Error interno en el servidor
+components:
+  schemas:
+    Products:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: ID autogenerado por MongoDB
+        title:
+          type: String
+          description: nombre del producto
+        price:
+          type: Number
+          description: precio del producto
+        stock: 
+          type: Number
+          description: cantidad de stock del producto
+        category:
+          type: String
+          description: categoria del producto
+        status: 
+          type: Boolean
+          description: estado del produto
+        code: 
+          type: Number
+          description: codigo del producto
+    example:
+      _id: ObjectId("312314114ASDAS")
+      title: Escoba 
+      price: 1200
+      stock: 200
+      category: Limpieza
+      status: true
+      code: ASDWQ22
