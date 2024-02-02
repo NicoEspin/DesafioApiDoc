@@ -64,4 +64,19 @@ sessionRouter.get("/logout", (req, res) => {
   res.redirect("rutaLogin", 200, { resultado: "Usuario deslogueado" });
 });
 
+sessionRouter.get("/current", (req, res) => {
+  try {
+    if (req.isAuthenticated()) {
+      // Utiliza req.user directamente para obtener la información del usuario
+      res.status(200).send({ user: req.user });
+    } else {
+      res.status(404).send({ mensaje: "No hay sesión actual" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ mensaje: `Error al obtener la sesión actual ${error}` });
+  }
+});
+
+
 export default sessionRouter;
